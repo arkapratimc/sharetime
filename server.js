@@ -2,6 +2,10 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const url = require('url'); // To parse request URLs
+// Load Luxon
+const { DateTime } = require("luxon");
+const { parseTime, time_string } = require("./src/server_utils.js");
+
 
 
 function serveFile(filePath, contentType, res) {
@@ -38,7 +42,7 @@ const server = http.createServer(async (req, res) => {
 
         // When all data is received
         req.on('end', () => {
-            console.log('Received data from client:', body);
+            // console.log('Received data from client:', body);
 
             // You'll likely need to parse this data based on how you send it from the client.
             // For example, if it's URL-encoded:
@@ -48,12 +52,23 @@ const server = http.createServer(async (req, res) => {
             // If it's JSON:
             try {
                 const jsonData = JSON.parse(body);
-                console.log('Parsed JSON data:', jsonData);
+                // console.log('Parsed JSON data:', jsonData);
                 // Do something with jsonData.inputContent or jsonData.textareaContent
                 // e.g., save to a database, process it, etc.
 
+                const SOURCE_TIME = DateTime.fromISO(time_string(jsonData.time_to_view), {
+                    zone: jsonData.target_time_zone
+                });
+
+                const TIME_IN_USERS_ZONE = SOURCE_TIME.setZone(jsonData.userTimeZone);
+
                 res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ message: 'Data received successfully!', receivedData: jsonData }));
+                res.end(JSON.stringify({
+                    message: 'Data received successfully!', receivedData: {
+                        SOURCE_TIME: SOURCE_TIME.toFormat("hh:mm a ZZZZ"),
+                        TIME_IN_USERS_ZONE: TIME_IN_USERS_ZONE.toFormat("hh:mm a ZZZZ")
+                    }
+                }));
 
             } catch (error) {
                 console.error('Error parsing JSON:', error);
