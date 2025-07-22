@@ -27,6 +27,40 @@ const server = http.createServer(async (req, res) => {
     } else if (req.url === "/favicon.ico") {
         res.writeHead(204); // No Content
         return res.end();
+    } else if (req.url === "/api/submit-form" && req.method === "POST") {
+        // from here - https://g.co/gemini/share/17ad757be9c5
+        let body = '';
+
+        // Listen for data chunks
+        req.on('data', chunk => {
+            body += chunk.toString(); // Convert Buffer to string
+        });
+
+        // When all data is received
+        req.on('end', () => {
+            console.log('Received data from client:', body);
+
+            // You'll likely need to parse this data based on how you send it from the client.
+            // For example, if it's URL-encoded:
+            // const parsedData = new URLSearchParams(body);
+            // const inputValue = parsedData.get('inputValue'); // Assuming the input field's name is 'inputValue'
+
+            // If it's JSON:
+            try {
+                const jsonData = JSON.parse(body);
+                console.log('Parsed JSON data:', jsonData);
+                // Do something with jsonData.inputContent or jsonData.textareaContent
+                // e.g., save to a database, process it, etc.
+
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ message: 'Data received successfully!', receivedData: jsonData }));
+
+            } catch (error) {
+                console.error('Error parsing JSON:', error);
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ message: 'Error: Invalid JSON data.' }));
+            }
+        });
     } else {
         res.writeHead(404, { 'Content-Type': 'text/plain' });
         res.end('404 Not Found');

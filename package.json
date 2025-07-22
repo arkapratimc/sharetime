@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lom": "webpack --config ./webpack.config.js",
-    "compile": "webpack --config ./public/src/webpack.config.js && webpack --config ./webpack.config.js"
+    "compile": "webpack --config ./public/src/webpack.config.js && webpack --config ./webpack.config.js",
+    "see": "node bundle.js"
   },
   "keywords": [],
   "author": "",
