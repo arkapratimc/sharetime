@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Country Time Converter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+</head>
+<body>
+  <h1>Country Time Converter</h1>
+  <form id="timeForm">
+    <label for="localTime">Enter Time (Your Timezone):</label>
+    <input type="time" id="localTime" required>
+
+    <label for="country">Target Country:</label>
+    <select id="country" required>
+      <option value="America/New_York">USA (New York)</option>
+      <option value="Europe/London">UK (London)</option>
+      <option value="Asia/Tokyo">Japan (Tokyo)</option>
+      <option value="Australia/Sydney">Australia (Sydney)</option>
+      <option value="Europe/Berlin">Germany (Berlin)</option>
+      <option value="Asia/Kolkata">India (Kolkata)</option>
+      <option value="Asia/Dubai">UAE (Dubai)</option>
+    </select>
+
+    <button type="submit">Convert Time</button>
+  </form>
+
+  <div id="result"></div>
+
+</body>
+</html>
