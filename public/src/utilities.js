@@ -32,40 +32,40 @@
  * // submitFormData();
  */
 async function postJson(url, data) {
-    try {
-        // Perform the fetch request
-        const response = await fetch(url, {
-            method: 'POST', // Specify the HTTP method as POST
-            headers: {
-                // Indicate that the request body is JSON
-                'Content-Type': 'application/json'
-            },
-            // Convert the JavaScript object to a JSON string for the request body
-            body: JSON.stringify(data)
-        });
+  try {
+    // Perform the fetch request
+    const response = await fetch(url, {
+      method: "POST", // Specify the HTTP method as POST
+      headers: {
+        // Indicate that the request body is JSON
+        "Content-Type": "application/json",
+      },
+      // Convert the JavaScript object to a JSON string for the request body
+      body: JSON.stringify(data),
+    });
 
-        // Check if the HTTP response status is OK (2xx success range)
-        if (!response.ok) {
-            // If not OK, throw an error with the status
-            const errorBody = await response.text(); // Attempt to read error body for more info
-            throw new Error(`HTTP error! status: ${response.status}, message: ${errorBody || 'No specific error message provided.'}`);
-        }
-
-        // Parse the response body as JSON
-        const result = await response.json();
-
-        // Return the parsed JSON object
-        return result;
-
-    } catch (error) {
-        // Catch any errors that occur during the fetch operation or JSON parsing
-        console.error('Error in postJson function:', error);
-        // Re-throw the error so the calling function can handle it
-        throw error;
+    // Check if the HTTP response status is OK (2xx success range)
+    if (!response.ok) {
+      // If not OK, throw an error with the status
+      const errorBody = await response.text(); // Attempt to read error body for more info
+      throw new Error(
+        `HTTP error! status: ${response.status}, message: ${errorBody || "No specific error message provided."}`,
+      );
     }
-}
 
+    // Parse the response body as JSON
+    const result = await response.json();
+
+    // Return the parsed JSON object
+    return result;
+  } catch (error) {
+    // Catch any errors that occur during the fetch operation or JSON parsing
+    console.error("Error in postJson function:", error);
+    // Re-throw the error so the calling function can handle it
+    throw error;
+  }
+}
 
 module.exports = {
-    postJson
-}
+  postJson,
+};
