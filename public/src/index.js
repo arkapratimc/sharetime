@@ -1,4 +1,4 @@
-const { postJson } = require("./utilities.js");
+const { postJson, convertTimeToNumberString } = require("./utilities.js");
 
 const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -17,7 +17,8 @@ const time_to_view = document.querySelector("#localTime");
 const target_time_zone = document.querySelector("#country");
 const submit_button = document.querySelector("#view-results");
 const RESULTS = document.querySelector("#result");
-
+const copy_box = document.getElementById("copyBox");
+const copy_status = document.getElementById("copyStatus");
 
 submit_button.addEventListener("click", async (event) => {
   event.preventDefault();
@@ -53,6 +54,12 @@ submit_button.addEventListener("click", async (event) => {
     paragraph_2.textContent = `${serverResponse.receivedData.TIME_IN_USERS_ZONE}`;
     paragraph_2.classList.add("center-text");
     
+    copy_box.textContent = `${window.location.origin}/${target}/${convertTimeToNumberString(time_to_view.value.trim())}`
+    copy_box.classList.remove("display-none");
+    copy_box.classList.add("display-block");
+
+    copy_status.classList.remove("display-none");
+    copy_status.classList.add("display-block");
 
     RESULTS.appendChild(heading);
     RESULTS.appendChild(paragraph);
@@ -62,4 +69,16 @@ submit_button.addEventListener("click", async (event) => {
   } catch (error) {
     console.error("Error submitting data:", error.message);
   }
+});
+
+
+copy_box.addEventListener("click", function () {
+  const text = this.textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const status = document.getElementById("copyStatus");
+    status.textContent = "Copied!";
+    setTimeout(() => {
+      status.textContent = "";
+    }, 1500);
+  });
 });

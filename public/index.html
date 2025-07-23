@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Share Time</title>
@@ -7,6 +8,7 @@
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
+
 <body>
   <h1>Share Time</h1>
   <form id="timeForm">
@@ -15,13 +17,16 @@
 
     <label for="country">Target Timezone:</label>
     <select id="country" required>
-      
+
     </select>
 
     <button type="submit" id="view-results">View</button>
   </form>
 
   <div id="result"></div>
+  <div id="copyBox" class="copy-box display-none"></div>
+  <div id="copyStatus" class="copy-status display-none"></div>
 
 </body>
+
 </html>

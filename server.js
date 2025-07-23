@@ -6,6 +6,8 @@ const url = require("url"); // To parse request URLs
 const { DateTime } = require("luxon");
 const { parseTime, time_string } = require("./src/server_utils.js");
 
+const DATETIME_REGEX = /^\/([^\/]+)\/([^\/]+)\/(\d{4})$/;
+
 function serveFile(filePath, contentType, res) {
   fs.readFile(path.join(__dirname, filePath), (err, data) => {
     if (err) {
@@ -18,7 +20,9 @@ function serveFile(filePath, contentType, res) {
 }
 
 const server = http.createServer(async (req, res) => {
-  const parsedUrl = url.parse(req.url);
+  const parsedUrl = url.parse(req.url, true);
+  const path = parsedUrl.pathname;
+
   if (req.url === "/" || req.url === "/index.html") {
     serveFile("public/index.html", "text/html", res);
   } else if (req.url === "/style.css") {
@@ -78,6 +82,10 @@ const server = http.createServer(async (req, res) => {
         res.end(JSON.stringify({ message: "Error: Invalid JSON data." }));
       }
     });
+  } else if (DATETIME_REGEX.test(path)) {
+    console.log("working maybe");
+    res.writeHead(404, { "Content-Type": "text/plain" });
+    res.end("404 Not Found");
   } else {
     res.writeHead(404, { "Content-Type": "text/plain" });
     res.end("404 Not Found");

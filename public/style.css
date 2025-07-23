@@ -10,6 +10,38 @@ body {
   text-align: center;
 }
 
+.display-none {
+    display: none;
+}
+
+.display-block {
+    display: block;
+}
+
+
+.copy-box {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+  /* display: inline-block; */
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  user-select: none;
+  margin-top: 20px;
+}
+
+.copy-box:hover {
+  background-color: #f0f0f0;
+}
+
+.copy-status {
+  margin-top: 6px;
+  color: green;
+  font-size: 0.9em;
+}
+
+
 .container {
     background: white;
     padding: 2rem;
@@ -67,3 +99,6 @@ body {
     color: #333;
     text-align: center;
 }
+
+
+

@@ -66,6 +66,12 @@ async function postJson(url, data) {
   }
 }
 
+function convertTimeToNumberString(timeStr) {
+  return timeStr.replace(":", "");
+}
+
+
 module.exports = {
   postJson,
+  convertTimeToNumberString
 };
