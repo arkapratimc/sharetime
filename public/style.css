@@ -6,6 +6,9 @@ body {
     align-items: center;
     padding: 2rem;
 }
+.center-text {
+  text-align: center;
+}
 
 .container {
     background: white;
