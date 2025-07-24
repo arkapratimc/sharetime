@@ -27,8 +27,8 @@ const server = http.createServer(async (req, res) => {
     serveFile("public/index.html", "text/html", res);
   } else if (req.url === "/style.css") {
     serveFile("public/style.css", "text/css", res);
-  } else if (req.url === "/script.js") {
-    serveFile("public/script.js", "text/javascript", res);
+  } else if (req.url === "/home.bundle.js") {
+    serveFile("public/home.bundle.js", "text/javascript", res);
   } else if (req.url === "/favicon.ico") {
     res.writeHead(204); // No Content
     return res.end();
@@ -83,9 +83,9 @@ const server = http.createServer(async (req, res) => {
       }
     });
   } else if (DATETIME_REGEX.test(path)) {
-    console.log("working maybe");
-    res.writeHead(404, { "Content-Type": "text/plain" });
-    res.end("404 Not Found");
+    serveFile("public/display_only.html", "text/html", res);
+  } else if (req.url === "/doze.bundle.js") {
+    serveFile("public/doze.bundle.js", "text/javascript", res);
   } else {
     res.writeHead(404, { "Content-Type": "text/plain" });
     res.end("404 Not Found");

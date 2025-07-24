@@ -70,8 +70,16 @@ function convertTimeToNumberString(timeStr) {
   return timeStr.replace(":", "");
 }
 
+function convertNumberStringToTime(timeStr) {
+  if (timeStr.length !== 4) return "Invalid"; // optionally handle edge cases
+  return timeStr.slice(0, 2) + ":" + timeStr.slice(2);
+}
+
+
+
 
 module.exports = {
   postJson,
-  convertTimeToNumberString
+  convertTimeToNumberString,
+  convertNumberStringToTime
 };
