@@ -1,0 +1,1 @@
+(()=>{const o=window.location.pathname;console.log(o)})();

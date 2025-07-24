@@ -9,10 +9,10 @@ module.exports = {
     // Define the entry point(s) of your application.
     // Webpack will start bundling from these files.
     // You can specify multiple entry points as an array.
-    entry: [
-        './public/src/index.js', // Replace with the actual path to your first JS file
-        // './src/file3.js', // Uncomment and replace if you have a third JS file
-    ],
+    entry: {
+        home: './public/src/index.js',
+        doze: './public/src/doze.js'
+    },
 
     // Define where Webpack should output the bundled files.
     output: {
@@ -23,7 +23,7 @@ module.exports = {
         // The name of the bundled JavaScript file.
         // `[name]` would use the entry point name (if you had multiple named entries).
         // `[contenthash]` can be added for cache busting in production (e.g., 'bundle.[contenthash].js').
-        filename: 'script.js', // You can change this to any desired name
+        filename: '[name].bundle.js' // You can change this to any desired name
     },
 
     // Optional: Add a devtool for source maps, which help with debugging.
